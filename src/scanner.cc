@@ -4,12 +4,10 @@
 #include <cwctype>
 #include <string>
 #include <vector>
-#include <iostream>
 
 namespace {
 	using std::string;
 	using std::vector;
-	using std::cout;
 	
 	enum TokenType {
 		LITERAL,
@@ -54,7 +52,7 @@ namespace {
 					advance(lexer);
 				}
 				
-				while (isalpha(lexer->lookahead)) {
+				while (iswalpha(lexer->lookahead)) {
 					matched = true;
 					
 					advance(lexer);

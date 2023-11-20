@@ -42,7 +42,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "regexLiteral"
+          "name": "_regexLiteral"
         },
         {
           "type": "PREC",
@@ -62,7 +62,7 @@
         }
       ]
     },
-    "regexLiteral": {
+    "_regexLiteral": {
       "type": "SEQ",
       "members": [
         {
@@ -71,7 +71,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "regexPattern"
+          "name": "_regexPattern"
         },
         {
           "type": "STRING",
@@ -82,7 +82,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "regexFlags"
+              "name": "_regexFlags"
             },
             {
               "type": "BLANK"
@@ -91,7 +91,7 @@
         }
       ]
     },
-    "regexPattern": {
+    "_regexPattern": {
       "type": "REPEAT1",
       "content": {
         "type": "CHOICE",
@@ -154,7 +154,7 @@
         ]
       }
     },
-    "regexFlags": {
+    "_regexFlags": {
       "type": "PATTERN",
       "value": "[a-z]+"
     },

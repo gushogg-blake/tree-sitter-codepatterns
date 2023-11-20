@@ -18,11 +18,11 @@ module.exports = grammar({
 			$.replaceEnd,
 		),
 		
-		regex: $ => seq($.regexLiteral, prec(1, optional($.captureLabel))),
+		regex: $ => seq($._regexLiteral, prec(1, optional($.captureLabel))),
 
-		regexLiteral: $ => seq("/", $.regexPattern, "/", optional($.regexFlags)),
+		_regexLiteral: $ => seq("/", $._regexPattern, "/", optional($._regexFlags)),
 		
-		regexPattern: $ => repeat1(choice(
+		_regexPattern: $ => repeat1(choice(
 			seq(
 				"[",
 				repeat(choice(
@@ -35,7 +35,7 @@ module.exports = grammar({
 			/[^/\\\[\n]/, // any character besides '[', '\', '/', '\n'
 		)),
 		
-		regexFlags: $ => /[a-z]+/,
+		_regexFlags: $ => /[a-z]+/,
 		
 		lines: $ => seq(
 			$._startLine,
