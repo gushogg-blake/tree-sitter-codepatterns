@@ -1,5 +1,25 @@
 [
   {
+    "type": "captureLabel",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "lines",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "captureLabel",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "query",
     "named": true,
     "fields": {},
@@ -7,6 +27,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "lines",
+          "named": true
+        },
         {
           "type": "literal",
           "named": true
@@ -31,19 +55,96 @@
     }
   },
   {
+    "type": "regex",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "captureLabel",
+          "named": true
+        },
+        {
+          "type": "regexLiteral",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "regexLiteral",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "regexFlags",
+          "named": true
+        },
+        {
+          "type": "regexPattern",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "regexPattern",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "replaceEnd",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "replaceStart",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "*",
+    "named": false
+  },
+  {
+    "type": "+",
+    "named": false
+  },
+  {
+    "type": "/",
+    "named": false
+  },
+  {
+    "type": "?",
+    "named": false
+  },
+  {
+    "type": "@",
+    "named": false
+  },
+  {
+    "type": "[",
+    "named": false
+  },
+  {
+    "type": "\\",
+    "named": false
+  },
+  {
+    "type": "]",
+    "named": false
+  },
+  {
     "type": "literal",
     "named": true
   },
   {
-    "type": "regex",
-    "named": true
-  },
-  {
-    "type": "replaceEnd",
-    "named": true
-  },
-  {
-    "type": "replaceStart",
+    "type": "regexFlags",
     "named": true
   },
   {

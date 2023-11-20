@@ -1,7 +1,10 @@
 module.exports = grammar({
 	name: "codepatterns",
 	
-	extras: $ => [],
+	extras: $ => [
+		$._newlines,
+		$._startLine,
+	],
 	
 	rules: {
 		query: $ => repeat($._token),
@@ -15,35 +18,28 @@ module.exports = grammar({
 			$.replaceEnd,
 		),
 		
-		regex: $ => seq($.regexLiteral, optional($.captureLabel)),
+		regex: $ => seq($.regexLiteral, prec(1, optional($.captureLabel))),
 
-		regexLiteral: $ => seq(
-			"/",
-			field("pattern", $.regexPattern),
-			token.immediate("/"),
-			optional(field("flags", $.regexFlags)),
-		),
+		regexLiteral: $ => seq("/", $.regexPattern, "/", optional($.regexFlags)),
 		
-		regexPattern: $ => token.immediate(prec(
-			-1,
-			repeat1(choice(
-				seq(
-					"[",
-					repeat(choice(
-						seq("\\", /./), // escaped character
-						/[^\]\n\\]/, // any character besides ']' or '\n'
-					)),
-					"]",
-				), // square-bracket-delimited character class
-				seq("\\", /./), // escaped character
-				/[^/\\\[\n]/, // any character besides '[', '\', '/', '\n'
-			)),
+		regexPattern: $ => repeat1(choice(
+			seq(
+				"[",
+				repeat(choice(
+					seq("\\", /./), // escaped character
+					/[^\]\n\\]/, // any character besides ']' or '\n'
+				)),
+				"]",
+			), // square-bracket-delimited character class
+			seq("\\", /./), // escaped character
+			/[^/\\\[\n]/, // any character besides '[', '\', '/', '\n'
 		)),
 		
-		regexFlags: $ => token.immediate(/[a-z]+/),
+		regexFlags: $ => /[a-z]+/,
 		
-		lines: $ => choice(
-			$.captureLabel,
+		lines: $ => seq(
+			$._startLine,
+			optional($._whitespace),
 			seq(
 				choice("*", "+"),
 				optional("?"),
@@ -52,15 +48,19 @@ module.exports = grammar({
 			),
 		),
 		
-		captureLabel: $ => seq("@", token.immediate(/[a-zA-Z]+/)),
+		captureLabel: $ => seq("@", /[a-zA-Z]+/),
 		
 		replaceStart: $ => "[",
 		replaceEnd: $ => "]",
+		
+		_whitespace: $ => /[ \t]+/,
+		_newlines: $ => /[\r\n]+/,
 	},
 	
 	externals: $ => [
 		$.literal,
 		$.tsq,
-		$.errorSentinel,
+		$._startLine,
+		$._errorSentinel,
 	],
 });
