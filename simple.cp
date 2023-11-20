@@ -1,1 +1,1 @@
-module (query)
+module

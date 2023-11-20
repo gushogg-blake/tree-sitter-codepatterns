@@ -5,19 +5,9 @@
     "fields": {}
   },
   {
-    "type": "lines",
+    "type": "literal",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "captureLabel",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "query",
@@ -28,7 +18,11 @@
       "required": false,
       "types": [
         {
-          "type": "lines",
+          "type": "captureLabel",
+          "named": true
+        },
+        {
+          "type": "lineQuantifier",
           "named": true
         },
         {
@@ -55,52 +49,7 @@
     }
   },
   {
-    "type": "regex",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "captureLabel",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "replaceEnd",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "replaceStart",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "*",
-    "named": false
-  },
-  {
-    "type": "+",
-    "named": false
-  },
-  {
-    "type": "/",
-    "named": false
-  },
-  {
-    "type": "?",
-    "named": false
-  },
-  {
     "type": "@",
-    "named": false
-  },
-  {
-    "type": "[",
     "named": false
   },
   {
@@ -108,11 +57,19 @@
     "named": false
   },
   {
-    "type": "]",
-    "named": false
+    "type": "lineQuantifier",
+    "named": true
   },
   {
-    "type": "literal",
+    "type": "regex",
+    "named": true
+  },
+  {
+    "type": "replaceEnd",
+    "named": true
+  },
+  {
+    "type": "replaceStart",
     "named": true
   },
   {

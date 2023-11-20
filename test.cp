@@ -1,3 +1,5 @@
++ @lines
+
 module.exports = (object
 	(method_definition
 		(property_identifier) @p
@@ -6,4 +8,4 @@ module.exports = (object
 	.
 	"," @-c
 	(#eq? @p "init")
-) @obj/;?/
+) @obj/;?/@test

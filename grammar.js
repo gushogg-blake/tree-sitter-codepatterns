@@ -1,52 +1,32 @@
 module.exports = grammar({
 	name: "codepatterns",
 	
-	extras: $ => [
-		$._newlines,
-		$._startLine,
-	],
+	//extras: $ => [
+	//	$._newlines,
+	//],
 	
 	rules: {
 		query: $ => repeat($._token),
 		
 		_token: $ => choice(
 			$.literal,
+			$.captureLabel,
 			$.regex,
 			$.tsq,
-			$.lines,
+			$.lineQuantifier,
 			$.replaceStart,
 			$.replaceEnd,
 		),
 		
-		regex: $ => seq($._regexLiteral, prec(1, optional($.captureLabel))),
-
-		_regexLiteral: $ => seq("/", $._regexPattern, "/", optional($._regexFlags)),
+		literal: $ => choice($._escape, /[^\\\/\[\]@\(]+/),
 		
-		_regexPattern: $ => repeat1(choice(
-			seq(
-				"[",
-				repeat(choice(
-					seq("\\", /./), // escaped character
-					/[^\]\n\\]/, // any character besides ']' or '\n'
-				)),
-				"]",
-			), // square-bracket-delimited character class
-			seq("\\", /./), // escaped character
-			/[^/\\\[\n]/, // any character besides '[', '\', '/', '\n'
-		)),
+		_escape: $ => seq("\\", /./),
 		
-		_regexFlags: $ => /[a-z]+/,
-		
-		lines: $ => seq(
-			$._startLine,
-			optional($._whitespace),
-			seq(
-				choice("*", "+"),
-				optional("?"),
-				optional($._whitespace),
-				optional($.captureLabel),
-			),
-		),
+		//_lineQuantifier: $ => seq(
+		//	$.lineQuantifier,
+		//	optional($._whitespace),
+		//	optional($.captureLabel),
+		//),
 		
 		captureLabel: $ => seq("@", /[a-zA-Z]+/),
 		
@@ -58,9 +38,10 @@ module.exports = grammar({
 	},
 	
 	externals: $ => [
-		$.literal,
+		//$.literal,
 		$.tsq,
-		$._startLine,
+		$.lineQuantifier,
+		$.regex,
 		$._errorSentinel,
 	],
 });
