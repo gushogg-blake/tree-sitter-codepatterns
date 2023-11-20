@@ -24,9 +24,9 @@ enum {
   aux_sym_captureLabel_token1 = 5,
   sym_replaceStart = 6,
   sym_replaceEnd = 7,
-  sym_tsq = 8,
-  sym_lineQuantifier = 9,
-  sym_regex = 10,
+  sym_lineQuantifier = 8,
+  sym_regex = 9,
+  sym_tsq = 10,
   sym__errorSentinel = 11,
   sym_query = 12,
   sym__token = 13,
@@ -45,9 +45,9 @@ static const char * const ts_symbol_names[] = {
   [aux_sym_captureLabel_token1] = "captureLabel_token1",
   [sym_replaceStart] = "replaceStart",
   [sym_replaceEnd] = "replaceEnd",
-  [sym_tsq] = "tsq",
   [sym_lineQuantifier] = "lineQuantifier",
   [sym_regex] = "regex",
+  [sym_tsq] = "tsq",
   [sym__errorSentinel] = "_errorSentinel",
   [sym_query] = "query",
   [sym__token] = "_token",
@@ -66,9 +66,9 @@ static const TSSymbol ts_symbol_map[] = {
   [aux_sym_captureLabel_token1] = aux_sym_captureLabel_token1,
   [sym_replaceStart] = sym_replaceStart,
   [sym_replaceEnd] = sym_replaceEnd,
-  [sym_tsq] = sym_tsq,
   [sym_lineQuantifier] = sym_lineQuantifier,
   [sym_regex] = sym_regex,
+  [sym_tsq] = sym_tsq,
   [sym__errorSentinel] = sym__errorSentinel,
   [sym_query] = sym_query,
   [sym__token] = sym__token,
@@ -111,15 +111,15 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .visible = true,
     .named = true,
   },
-  [sym_tsq] = {
-    .visible = true,
-    .named = true,
-  },
   [sym_lineQuantifier] = {
     .visible = true,
     .named = true,
   },
   [sym_regex] = {
+    .visible = true,
+    .named = true,
+  },
+  [sym_tsq] = {
     .visible = true,
     .named = true,
   },
@@ -282,30 +282,30 @@ static const TSLexMode ts_lex_modes[STATE_COUNT] = {
 };
 
 enum {
-  ts_external_token_tsq = 0,
-  ts_external_token_lineQuantifier = 1,
-  ts_external_token_regex = 2,
+  ts_external_token_lineQuantifier = 0,
+  ts_external_token_regex = 1,
+  ts_external_token_tsq = 2,
   ts_external_token__errorSentinel = 3,
 };
 
 static const TSSymbol ts_external_scanner_symbol_map[EXTERNAL_TOKEN_COUNT] = {
-  [ts_external_token_tsq] = sym_tsq,
   [ts_external_token_lineQuantifier] = sym_lineQuantifier,
   [ts_external_token_regex] = sym_regex,
+  [ts_external_token_tsq] = sym_tsq,
   [ts_external_token__errorSentinel] = sym__errorSentinel,
 };
 
 static const bool ts_external_scanner_states[3][EXTERNAL_TOKEN_COUNT] = {
   [1] = {
-    [ts_external_token_tsq] = true,
     [ts_external_token_lineQuantifier] = true,
     [ts_external_token_regex] = true,
+    [ts_external_token_tsq] = true,
     [ts_external_token__errorSentinel] = true,
   },
   [2] = {
-    [ts_external_token_tsq] = true,
     [ts_external_token_lineQuantifier] = true,
     [ts_external_token_regex] = true,
+    [ts_external_token_tsq] = true,
   },
 };
 
@@ -317,9 +317,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [aux_sym_captureLabel_token1] = ACTIONS(1),
     [sym_replaceStart] = ACTIONS(1),
     [sym_replaceEnd] = ACTIONS(1),
-    [sym_tsq] = ACTIONS(1),
     [sym_lineQuantifier] = ACTIONS(1),
     [sym_regex] = ACTIONS(1),
+    [sym_tsq] = ACTIONS(1),
     [sym__errorSentinel] = ACTIONS(1),
   },
   [1] = {
@@ -335,9 +335,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_AT] = ACTIONS(9),
     [sym_replaceStart] = ACTIONS(11),
     [sym_replaceEnd] = ACTIONS(11),
-    [sym_tsq] = ACTIONS(13),
     [sym_lineQuantifier] = ACTIONS(13),
     [sym_regex] = ACTIONS(13),
+    [sym_tsq] = ACTIONS(13),
   },
   [2] = {
     [sym__token] = STATE(3),
@@ -351,9 +351,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_AT] = ACTIONS(9),
     [sym_replaceStart] = ACTIONS(17),
     [sym_replaceEnd] = ACTIONS(17),
-    [sym_tsq] = ACTIONS(19),
     [sym_lineQuantifier] = ACTIONS(19),
     [sym_regex] = ACTIONS(19),
+    [sym_tsq] = ACTIONS(19),
   },
   [3] = {
     [sym__token] = STATE(3),
@@ -367,9 +367,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_AT] = ACTIONS(29),
     [sym_replaceStart] = ACTIONS(32),
     [sym_replaceEnd] = ACTIONS(32),
-    [sym_tsq] = ACTIONS(35),
     [sym_lineQuantifier] = ACTIONS(35),
     [sym_regex] = ACTIONS(35),
+    [sym_tsq] = ACTIONS(35),
   },
 };
 
@@ -381,9 +381,9 @@ static const uint16_t ts_small_parse_table[] = {
       sym_replaceStart,
       sym_replaceEnd,
     ACTIONS(38), 5,
-      sym_tsq,
       sym_lineQuantifier,
       sym_regex,
+      sym_tsq,
       ts_builtin_sym_end,
       aux_sym_literal_token1,
   [14] = 2,
@@ -393,9 +393,9 @@ static const uint16_t ts_small_parse_table[] = {
       sym_replaceStart,
       sym_replaceEnd,
     ACTIONS(42), 5,
-      sym_tsq,
       sym_lineQuantifier,
       sym_regex,
+      sym_tsq,
       ts_builtin_sym_end,
       aux_sym_literal_token1,
   [28] = 2,
@@ -405,9 +405,9 @@ static const uint16_t ts_small_parse_table[] = {
       sym_replaceStart,
       sym_replaceEnd,
     ACTIONS(46), 5,
-      sym_tsq,
       sym_lineQuantifier,
       sym_regex,
+      sym_tsq,
       ts_builtin_sym_end,
       aux_sym_literal_token1,
   [42] = 1,

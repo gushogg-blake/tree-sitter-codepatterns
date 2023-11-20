@@ -108,15 +108,15 @@
   "externals": [
     {
       "type": "SYMBOL",
-      "name": "tsq"
-    },
-    {
-      "type": "SYMBOL",
       "name": "lineQuantifier"
     },
     {
       "type": "SYMBOL",
       "name": "regex"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "tsq"
     },
     {
       "type": "SYMBOL",
