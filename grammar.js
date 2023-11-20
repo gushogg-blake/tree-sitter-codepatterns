@@ -1,10 +1,6 @@
 module.exports = grammar({
 	name: "codepatterns",
 	
-	//extras: $ => [
-	//	$._newlines,
-	//],
-	
 	rules: {
 		query: $ => repeat($._token),
 		
@@ -22,12 +18,6 @@ module.exports = grammar({
 		
 		_escape: $ => seq("\\", /./),
 		
-		//_lineQuantifier: $ => seq(
-		//	$.lineQuantifier,
-		//	optional($._whitespace),
-		//	optional($.captureLabel),
-		//),
-		
 		captureLabel: $ => seq("@", /[a-zA-Z]+/),
 		
 		replaceStart: $ => "[",
@@ -38,10 +28,9 @@ module.exports = grammar({
 	},
 	
 	externals: $ => [
-		//$.literal,
 		$.lineQuantifier,
 		$.regex,
 		$.tsq,
-		$._errorSentinel,
+		//$._errorSentinel,
 	],
 });

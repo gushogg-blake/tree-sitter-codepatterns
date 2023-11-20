@@ -15,7 +15,7 @@ namespace {
 		LINE_QUANTIFIER,
 		REGEX,
 		TSQ,
-		ERROR_SENTINEL,
+		//ERROR_SENTINEL,
 	};
 	
 	struct Scanner {
