@@ -25,9 +25,7 @@ namespace {
 		void deserialize(const char *buffer, unsigned length) {}
 		
 		void advance(TSLexer *lexer) {
-			cout << lexer->lookahead << '\n';
 			lexer->advance(lexer, false);
-			cout << lexer->lookahead << '\n';
 		}
 		
 		void skipWhitespace(TSLexer *lexer) {
@@ -36,13 +34,19 @@ namespace {
 			}
 		}
 		
-		void consumeQueryQuantifier(TSLexer *lexer) {
+		bool consumeQueryQuantifier(TSLexer *lexer) {
 			if (lexer->lookahead == '?' || lexer->lookahead == '*' || lexer->lookahead == '+') {
 				advance(lexer);
+				
+				return true;
 			}
+			
+			return false;
 		}
 		
-		void consumeCaptureLabel(TSLexer *lexer) {
+		bool consumeCaptureLabel(TSLexer *lexer) {
+			bool matched = false;
+			
 			if (lexer->lookahead == '@') {
 				advance(lexer);
 				
@@ -51,9 +55,21 @@ namespace {
 				}
 				
 				while (isalpha(lexer->lookahead)) {
+					matched = true;
+					
 					advance(lexer);
 				}
 			}
+			
+			return matched;
+		}
+		
+		void markEnd(TSLexer *lexer) {
+			lexer->mark_end(lexer);
+		}
+		
+		bool eof(TSLexer *lexer) {
+			return lexer->eof(lexer);
 		}
 		
 		bool scanLiteral(TSLexer *lexer) {
@@ -73,7 +89,7 @@ namespace {
 				if (lexer->lookahead == '\\') {
 					matched = true;
 					advance(lexer);
-					if (lexer->eof(lexer)) {
+					if (eof(lexer)) {
 						goto end;
 					}
 					advance(lexer);
@@ -84,7 +100,7 @@ namespace {
 					|| lexer->lookahead == ']'
 					|| lexer->lookahead == '\r'
 					|| lexer->lookahead == '\n'
-					|| lexer->eof(lexer)
+					|| eof(lexer)
 				) {
 					goto end;
 				} else {
@@ -106,8 +122,7 @@ namespace {
 			unsigned openBrackets = 1;
 			
 			for (;;) {
-				if (lexer->eof(lexer)) goto end;
-				cout << "query\n";
+				if (eof(lexer)) goto end;
 				
 				if (lexer->lookahead == '(') {
 					openBrackets++;
@@ -117,10 +132,15 @@ namespace {
 					advance(lexer);
 					
 					if (openBrackets == 0) {
-						//consumeQueryQuantifier(lexer);
-						lexer->mark_end(lexer);
-						//skipWhitespace(lexer);
-						//consumeCaptureLabel(lexer);
+						consumeQueryQuantifier(lexer);
+						markEnd(lexer);
+						skipWhitespace(lexer);
+						
+						if (consumeCaptureLabel(lexer)) {
+							markEnd(lexer);
+						}
+						
+						return true;
 					}
 				} else if (lexer->lookahead == ';') {
 					advance(lexer);
@@ -129,11 +149,11 @@ namespace {
 					advance(lexer);
 					
 					for (;;) {
-						if (lexer->eof(lexer)) return false;
+						if (eof(lexer)) return false;
 						
 						if (lexer->lookahead == '\\') {
 							advance(lexer);
-							if (lexer->eof(lexer)) return false;
+							if (eof(lexer)) return false;
 							advance(lexer);
 						} else if (lexer->lookahead == '"' || lexer->lookahead == '\r' || lexer->lookahead == '\n') {
 							advance(lexer);
@@ -149,9 +169,7 @@ namespace {
 			
 			end: ;
 			
-			cout << "parsed query\n";
-			
-			return openBrackets == 0;
+			return false;
 		}
 		
 		bool scan(TSLexer *lexer, const bool *valid_symbols) {
