@@ -102,12 +102,9 @@ namespace {
 			}
 			
 			while (
-				lexer->lookahead == 'g'
-				|| lexer->lookahead == 'm'
-				|| lexer->lookahead == 'i'
-				|| lexer->lookahead == 's'
-				|| lexer->lookahead == 'y'
+				lexer->lookahead == 'i'
 				|| lexer->lookahead == 'u'
+				|| lexer->lookahead == 'v'
 			) {
 				advance(lexer);
 			}
