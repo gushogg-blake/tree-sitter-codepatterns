@@ -1,0 +1,53 @@
+[
+  {
+    "type": "query",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "regex",
+          "named": true
+        },
+        {
+          "type": "replaceEnd",
+          "named": true
+        },
+        {
+          "type": "replaceStart",
+          "named": true
+        },
+        {
+          "type": "tsq",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "literal",
+    "named": true
+  },
+  {
+    "type": "regex",
+    "named": true
+  },
+  {
+    "type": "replaceEnd",
+    "named": true
+  },
+  {
+    "type": "replaceStart",
+    "named": true
+  },
+  {
+    "type": "tsq",
+    "named": true
+  }
+]

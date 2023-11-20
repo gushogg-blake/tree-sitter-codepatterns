@@ -1,0 +1,13 @@
+{
+	"name": "tree-sitter-codepatterns",
+	"version": "1.0.0",
+	"author": "Gus Hogg-Blake",
+	"description": "Tree-sitter grammar for CodePatterns",
+	"dependencies": {
+		"nan": "^2.18.0"
+	},
+	"devDependencies": {
+		"tree-sitter-cli": "^0.20.8"
+	},
+	"main": "bindings/node"
+}

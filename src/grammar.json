@@ -1,0 +1,74 @@
+{
+  "name": "codepatterns",
+  "rules": {
+    "query": {
+      "type": "REPEAT",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_token"
+      }
+    },
+    "_token": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "literal"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "regex"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "tsq"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "replaceStart"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "replaceEnd"
+        }
+      ]
+    }
+  },
+  "extras": [
+    {
+      "type": "PATTERN",
+      "value": "\\s"
+    }
+  ],
+  "conflicts": [],
+  "precedences": [],
+  "externals": [
+    {
+      "type": "SYMBOL",
+      "name": "literal"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "regex"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "tsq"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "replaceStart"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "replaceEnd"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "errorSentinel"
+    }
+  ],
+  "inline": [],
+  "supertypes": []
+}
+
