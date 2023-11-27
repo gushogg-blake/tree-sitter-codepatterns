@@ -1,21 +1,19 @@
 #include <tree_sitter/parser.h>
 
 #include <cstring>
-#include <cwctype>
 #include <string>
-#include <vector>
 //#include <iostream>
 
 namespace {
 	using std::string;
-	using std::vector;
 	//using std::cout;
 	
 	enum TokenType {
 		LINE_QUANTIFIER,
 		REGEX,
+		EMPTY_REGEX,
 		TSQ,
-		//ERROR_SENTINEL,
+		ERROR_SENTINEL,
 	};
 	
 	struct Scanner {
@@ -72,13 +70,7 @@ namespace {
 		}
 		
 		bool scanRegex(TSLexer *lexer) {
-			if (lexer->lookahead != '/') {
-				return false;
-			}
-			
 			bool inClass = false;
-			
-			advance(lexer);
 			
 			for (;;) {
 				if (eol(lexer)) return false;
@@ -188,14 +180,33 @@ namespace {
 		}
 		
 		bool scan(TSLexer *lexer, const bool *valid_symbols) {
+			if (valid_symbols[ERROR_SENTINEL]) return false;
+			
+			if ((valid_symbols[EMPTY_REGEX] || valid_symbols[REGEX]) && lexer->lookahead == '/') {
+				advance(lexer);
+				
+				if (eof(lexer)) return false;
+				
+				if (valid_symbols[EMPTY_REGEX] && lexer->lookahead == '/') {
+					lexer->result_symbol = EMPTY_REGEX;
+					
+					advance(lexer);
+					
+					return true;
+				} else if (valid_symbols[REGEX] && scanRegex(lexer)) {
+					lexer->result_symbol = REGEX;
+					
+					return true;
+				}
+			}
+			
+			if (valid_symbols[TSQ] && scanQuery(lexer)) {
+				lexer->result_symbol = TSQ;
+				return true;
+			}
+			
 			if (valid_symbols[LINE_QUANTIFIER] && scanLineQuantifier(lexer)) {
 				lexer->result_symbol = LINE_QUANTIFIER;
-				return true;
-			} else if (valid_symbols[REGEX] && scanRegex(lexer)) {
-				lexer->result_symbol = REGEX;
-				return true;
-			} else if (valid_symbols[TSQ] && scanQuery(lexer)) {
-				lexer->result_symbol = TSQ;
 				return true;
 			}
 			

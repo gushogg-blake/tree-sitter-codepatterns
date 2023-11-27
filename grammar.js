@@ -14,7 +14,7 @@ module.exports = grammar({
 			$.replaceEnd,
 		),
 		
-		literal: $ => choice($._escape, /[^\\\/\[\]@\(]+/),
+		literal: $ => choice($._escape, $._emptyRegex, /[^\\\/\[\]@\(]+/),
 		
 		_escape: $ => seq("\\", /./),
 		
@@ -30,7 +30,8 @@ module.exports = grammar({
 	externals: $ => [
 		$.lineQuantifier,
 		$.regex,
+		$._emptyRegex,
 		$.tsq,
-		//$._errorSentinel,
+		$._errorSentinel,
 	],
 });
