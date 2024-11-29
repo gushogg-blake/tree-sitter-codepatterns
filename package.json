@@ -1,5 +1,5 @@
 {
-	"name": "tree-sitter-codepatterns",
+	"name": "@gushogg-blake/tree-sitter-codepatterns",
 	"version": "1.0.0",
 	"author": "Gus Hogg-Blake",
 	"description": "Tree-sitter grammar for CodePatterns",
